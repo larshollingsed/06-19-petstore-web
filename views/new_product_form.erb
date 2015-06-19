@@ -1,0 +1,17 @@
+<ul><li>ID  -  Name  -  Address  -  Retail?</li>
+<% Location.all.each do |x| %>
+<li><%= x.id %> - <%= x.name %> - <%= x.address %> - <%= x.retail %></li>
+<% end %>
+</ul>
+<ul><li>ID  -  Category</li>
+<% Category.all.each do |x| %>
+<li><%= x.id %> - <%= x.type %></li>
+<% end %>
+<ul><form action="/add_new_product">
+  <li><input type="number" name="location_id" placeholder="Enter Location #"></li>
+  <li><input type="number" name="category_id" placehold="Enter Category #"></li>
+  <li><input type="name" name="name" placeholder="Enter name of new product"></li>
+  <li><input type="number" name="cost" placeholder="Enter cost"></li>
+  <li><input type="number" name="quantity" placeholder="Enter quantity"></li>
+  <li><input type="submit"></li>
+</form></ul>
