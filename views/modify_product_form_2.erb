@@ -1,0 +1,8 @@
+<% x = Product.find(params["id"])%>
+Product ID - <form action="/product_modified"> <input readonly name="id" value="<%= x.id %>"><br>
+Category ID - <input type="number" value="<%= x.category_id%>" name="category_id"><br>
+Location ID - <input type="number" value="<%= x.location_id%>" name="location_id"> <br>
+Name - <input type="name" value="<%= x.name %>" name="name"> <br>
+Cost - <input type="name" value="<%= x.cost %>" name="cost"><br>
+Quantity - <input type="name" value="<%= x.quantity %>" name="quantity"><br><br>
+<input type="submit">

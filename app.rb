@@ -17,51 +17,106 @@ DB.results_as_hash = true
 get "/menu" do
   erb :"menu"
 end
+
 get "/new_product_form" do
   erb :"new_product_form"
 end
 
 get "/add_new_product" do
-  product = Product.new({"location_id" => params["location_id"].to_i, "category_id" => params["category_id"].to_i, "name" => params["name"], "cost" => params["cost"].to_i, "quantity" => params["quantity"].to_i})
-  if product.add_to_database 
+  @product = Product.new({"location_id" => params["location_id"].to_i, "category_id" => params["category_id"].to_i, "name" => params["name"], "cost" => params["cost"].to_i, "quantity" => params["quantity"].to_i})
+  if @product.add_to_database 
     erb :"added_new_product"
   else
     "Failed to add product"
   end
 end
-#
-#   # Add new product
-#   if answer == 1
-#     new_product = {}
-#     Helper.list_locations
-#     puts "Which location \# would you like to add the product to?"
-#     new_product["location_id"] = gets.chomp.to_i
-#     Helper.list_categories
-#     puts "Which category \# is this item?"
-#     new_product["category_id"] = gets.chomp.to_i
-#     puts "Name of the new item:"
-#     new_product["name"] = gets.chomp.to_s
-#     puts "Cost per item:"
-#     new_product["cost"] = gets.chomp.to_f
-#     puts "Quantity:"
-#     new_product["quantity"] = gets.chomp.to_i
-#     product = Product.new(new_product)
-#     if product.add_to_database
-#       puts "Product added."
-#     else
-#       puts "Product NOT added."
-#     end
-#
-#     # Delete product
-#   elsif answer == 2
-#     Helper.list_products
-#     puts "Which product \# would you like to delete?"
-#     del_product = {}
-#     del_product["id"] = gets.chomp.to_i
-#     del = Product.new(del_product)
-#     del.delete
-#     puts "Product deleted."
-#
+
+get "/show_products" do
+  erb :"show_products"
+end
+
+get "/delete_product_form" do
+  erb :"delete_product_form"
+end
+
+get "/delete_product" do
+  del_product = {}
+  del_product["id"] = params["id"]
+  del = Product.new(del_product)
+  if del.delete
+    erb :"menu"
+  else
+    "Failed to delete product"
+  end
+end
+
+get "/new_location_form" do
+  erb :"new_location_form"
+end
+  
+get "/new_location_added" do
+  location = Location.new("name" => params["name"], "address" => params["address"], "retail" => params["retail"])
+  if location.add_to_database
+    erb :"menu"
+  else
+    "Failed to add location"
+  end
+end
+
+get "/delete_location_form" do
+  erb :"delete_location_form"
+end
+
+get "/location_deleted" do
+  del = Location.find(params["id"])
+  if del.delete_if_empty
+    erb :"menu"
+  else
+    "These are still at that location; must be moved first."
+  end
+end
+
+get "/inventory_values" do
+  erb :"inventory_values"
+end
+  
+get "/show_locations" do
+  erb :"show_locations"
+end
+
+get "/modify_product_form" do
+  erb :"modify_product_form"
+end
+
+get "/modify_product_form_2" do
+  erb :"modify_product_form_2"
+end
+
+get "/product_modified" do
+  x = {"id" => params["id"].to_i, "location_id" => params["location_id"].to_i, "category_id" => params["category_id"].to_i, "name" => params["name"], "cost" => params["cost"].to_f, "quantity" => params["quantity"].to_i}
+  product = Product.new(x)
+  if product.animal_in_non_retail? == false
+    product.save
+    erb :"menu"
+  else
+    "Failed to modify product."
+  end
+end
+
+get "/modify_location_form" do
+  erb :"modify_location_form"
+end
+
+get "/modify_location_form_2" do
+  erb :"modify_location_form_2"
+end
+
+get "/location_modified" do
+  x = {"id" => params["id"].to_i, "name" => params["name"], "address" => params["address"], "retail" => params["retail"]}
+  location = Location.new(x)
+  location.save
+  erb :"menu"
+end
 #     # Modify product
 #   elsif answer == 3
 #     Helper.list_products
@@ -72,26 +127,6 @@ end
 #     puts "What would you like to change it to?"
 #     product.send("#{old}=", gets.chomp)
 #     product.save
-#
-#   # List all products
-#   elsif answer == 4
-#     Helper.list_products
-#
-#     # Add location
-#   elsif answer == 5
-#     puts "Name of new location:"
-#     loc = {}
-#     loc["name"] = gets.chomp.to_s
-#     puts "Address of new location:"
-#     loc["address"] = gets.chomp.to_s
-#     puts "Retail? (yes/no)"
-#     loc["retail"] = gets.chomp
-#     location = Location.new(loc)
-#     if location.add_to_database
-#       puts "Location added."
-#     else
-#       puts "Location not added."
-#     end
 #
 #     # Delete location
 #   elsif answer == 6

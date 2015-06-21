@@ -1,0 +1,18 @@
+<h1>Inventory Values</h1>
+<h2>The total inventory value for all products is <%= Product.inventory_value %></h2>
+
+<h3>Inventory Values at Locations</h3>
+<table><tr><td>Location</td><td>Inventory Value</td></tr>
+  <% Location.all.each do |x| %>
+    <tr><td><%= x.name %></td><td><%= x.inventory_value%></td></tr>
+  <%end%>
+</table>
+
+<h3>Inventory Values for Categories</h3>
+<table><tr><td>Category</td><td>Inventory Value</td></tr>
+  <% Category.all.each do |x| %>
+  <tr><td><%= x.type%></td><td><%= x.inventory_value%></td></tr>
+  <%end%>
+</table>
+<Br>
+<a href="/menu">Return to menu</a>  
