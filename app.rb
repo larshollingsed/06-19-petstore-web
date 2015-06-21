@@ -72,7 +72,7 @@ get "/location_deleted" do
   if del.delete_if_empty
     erb :"menu"
   else
-    "These are still at that location; must be moved first."
+    "Items still at that location; must be moved first."
   end
 end
 
@@ -117,6 +117,15 @@ get "/location_modified" do
   location.save
   erb :"menu"
 end
+
+get "/product_display_by_location" do
+  erb :"product_display_by_location"
+end
+
+get "/product_display_by_category" do
+  erb :"product_display_by_category"
+end
+
 #     # Modify product
 #   elsif answer == 3
 #     Helper.list_products

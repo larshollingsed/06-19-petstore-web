@@ -1,0 +1,9 @@
+<% Location.all.each do |x|%>
+<table><tr><td><%= x.name%></td></tr>
+  <tr><td>Category</td><td>Name</td><td>Cost</td><td>Quantity</td></tr>
+  <% Product.all_at_location(x.id).each do |y|%>
+  <tr><td><%= y.category_id%></td><td><%= y.name%></td><td><%= y.cost%></td><td><%= y.quantity%></td></tr>
+  <%end%></table>
+<%end%>
+<Br><br>
+<a href="/menu">Return to main menu</a>
