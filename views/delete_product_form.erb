@@ -15,7 +15,8 @@
     <% Product.all.each do |x| %>
       <tr>
         <td>
-          <input type="radio" name="id" value="<%= x.id %>"><%= x.name%> </td>
+          <label for="<%= x.id %>">
+          <input type="radio" name="id" value="<%= x.id %>" id="<%= x.id %>"> <%= x.name %> </td>
         
         <!-- If user is sent here after trying to delete a location that -->
         <!--   still has porducts at it this will show them which objects --> 

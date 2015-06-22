@@ -36,11 +36,6 @@ class Location
       @retail = 0
     end
   end
-  
-  def save
-    retail_to_int
-     DB.execute("UPDATE locations SET name = '#{@name}', address = '#{@address}', retail = #{@retail} WHERE id = #{@id};")
-   end
    
   # Deletes the entire row from the locations table
   # Returns TRUE

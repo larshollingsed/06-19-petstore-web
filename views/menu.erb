@@ -6,7 +6,7 @@
 <% end %>
 
 <% if @new_product %>
-  <%= @new_product.name.capitalize %> was added to <%= Location.find(@new_product.location_id) %>!
+  <%= @new_product.name.capitalize %> was added to the <%= Location.find(@new_product.location_id).name %>!
 <% end %>
 
 <% if @location%>

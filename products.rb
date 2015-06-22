@@ -32,13 +32,6 @@ class Product
       @id = DB.last_insert_row_id
     end
   end
-  
-  # Saves an instance of a Product back to the database
-  # Returns Self
-  def save
-     DB.execute("UPDATE products SET location_id = #{@location_id}, category_id = #{@category_id}, name = '#{@name}', cost = #{@cost}, quantity = #{@quantity} WHERE id = #{@id};")
-     self
-  end
    
   # Compiles a list of all products in a given category
   # category - Integer 
@@ -61,13 +54,6 @@ class Product
   def self.inventory_value
     x = Product.all
     Orm.calc_value(x)
-  end
-  
-  # Deletes the entire row from the product table
-  # Returns Self
-  def delete
-    DB.execute("DELETE FROM products WHERE id = #{@id};")
-    return self
   end
   
   # Determines if a product is an animal
