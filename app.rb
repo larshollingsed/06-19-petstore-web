@@ -13,18 +13,24 @@ DB.execute("CREATE TABLE IF NOT EXISTS categories (id INTEGER PRIMARY KEY, type 
 DB.execute("CREATE TABLE IF NOT EXISTS locations (id INTEGER PRIMARY KEY, name TEXT, address TEXT, retail INTEGER);")
 DB.execute("CREATE TABLE IF NOT EXISTS products (id INTEGER PRIMARY KEY, category_id INTEGER, location_id INTEGER, name TEXT, cost FLOAT, quantity INTEGER);")
 DB.results_as_hash = true
+#-------------------------------------------------------------------------------
 
+# Main menu from which to select various options
 get "/menu" do
   erb :"menu"
 end
 
+# Goes to the form for adding a brand new product
 get "/new_product_form" do
   erb :"new_product_form"
 end
 
+# Makes sure an animal isn't being added to a non-retail location.
+# If true then reroutes to the menu.
+# If false then returns to the new product form with a message informing the user of the error and populating the form with the info provided previously.
 get "/add_new_product" do
-  @product = Product.new({"location_id" => params["location_id"].to_i, "category_id" => params["category_id"].to_i, "name" => params["name"], "cost" => params["cost"].to_i, "quantity" => params["quantity"].to_i})
-  if @product.add_to_database 
+  @new_product = Product.new({"location_id" => params["location_id"].to_i, "category_id" => params["category_id"].to_i, "name" => params["name"], "cost" => params["cost"].to_i, "quantity" => params["quantity"].to_i})
+  if @new_product.add_to_database 
     erb :"menu"
   else
     @animal_in_non_retail = true
@@ -32,23 +38,22 @@ get "/add_new_product" do
   end
 end
 
+# Shows a list of all product
 get "/show_products" do
   erb :"show_products"
 end
 
+# Goes to the delete product form
 get "/delete_product_form" do
   erb :"delete_product_form"
 end
 
+# Deletes product from database
+# Also sends a variable on the way to the menu to notify the user that deletion was successful.
 get "/delete_product" do
-  del_product = {}
-  del_product["id"] = params["id"]
-  del = Product.new(del_product)
-  if del.delete
-    erb :"menu"
-  else
-    "Failed to delete product"
-  end
+  @del = Product.find(params["id"])
+  @del.delete
+  erb :"menu"
 end
 
 get "/new_location_form" do
@@ -56,8 +61,8 @@ get "/new_location_form" do
 end
   
 get "/new_location_added" do
-  location = Location.new("name" => params["name"], "address" => params["address"], "retail" => params["retail"])
-  if location.add_to_database
+  @location = Location.new("name" => params["name"], "address" => params["address"], "retail" => params["retail"])
+  if @location.add_to_database
     erb :"menu"
   else
     "Failed to add location"
@@ -95,9 +100,9 @@ end
 
 get "/product_modified" do
   x = {"id" => params["id"].to_i, "location_id" => params["location_id"].to_i, "category_id" => params["category_id"].to_i, "name" => params["name"], "cost" => params["cost"].to_f, "quantity" => params["quantity"].to_i}
-  product = Product.new(x)
-  if product.animal_in_non_retail? == false
-    product.save
+  @modify = Product.new(x)
+  if @modify.animal_in_non_retail? == false
+    @modify.save
     erb :"menu"
   else
     @animal_in_non_retail = true
@@ -115,8 +120,8 @@ end
 
 get "/location_modified" do
   x = {"id" => params["id"].to_i, "name" => params["name"], "address" => params["address"], "retail" => params["retail"]}
-  location = Location.new(x)
-  location.save
+  @modify = Location.new(x)
+  @modify.save
   erb :"menu"
 end
 

@@ -1,3 +1,11 @@
+<% if @del%><%=@del.name%> was deleted!<%end%>
+
+<% if @new_product%><%=@new_product.name.capitalize%> was added to <%=Location.find(@new_product.location_id)%>!<%end%>
+
+<% if @location%><%=@location.name%> was added!<%end%>
+
+<% if @modify%><%=@modify.name%> was modified!<%end%>
+
 <h1>What would you like to do?</h1>
 <ul>
 <li><a href="/new_product_form">Add a new product</a> </li>
