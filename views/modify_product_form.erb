@@ -1,13 +1,24 @@
+<!-- Creates a form within a table of all the products -->
+<!-- Sends the id of the product to be modified to the next modify product form -->
 <h1>Which product would you like to modify?</h1>
 <table>
-  <tr><td>Name</td><td> Category </td><td> Location</td><td> Cost </td><td> Quantity</td></tr>
-<form action="/modify_product_form_2">
+  <tr>
+    <td>Name</td>
+    <td> Category </td>
+    <td> Location</td>
+    <td> Cost </td>
+    <td> Quantity</td>
+  </tr>
+  <form action="/modify_product_form_2">
   <% Product.all.each do |x| %>
-  <tr><td><input type="radio" name="id" value="<%= x.id %>"><%= x.name%> </td>
+  <tr>
+    <td><input type="radio" name="id" value="<%= x.id %>"><%= x.name%> </td>
     <td> <%= Category.find(x.category_id).type%> </td>
     <td> <%= Location.find(x.location_id).name%> </td>
     <td> <%= x.cost %> </td>
-    <td> <%= x.quantity %></td></tr>
+    <td> <%= x.quantity %></td>
+  </tr>
   <%end%>
-  <input type="submit">
-</form>
+</table><br><br>
+
+  <input type="submit"></form>

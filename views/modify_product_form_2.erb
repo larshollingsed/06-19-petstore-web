@@ -1,18 +1,43 @@
-<% if @animal_in_non_retail %> <h3>Animals may not be added to non-retail locations!</h3><%end%>
+<!-- Creates a form to modify a specific product -->
 
+<!-- If this variable is true the user has been sent back here and this warning will be displayed -->
+<% if @animal_in_non_retail %> 
+  <h3>Animals may not be added to non-retail locations!</h3>
+<%end%>
+
+<!-- Creates a Product object to populate the form -->
 <% x = Product.find(params["id"])%>
-<center><h1> Modify this product and click "submit"</h1><br><form action="/product_modified"> <input type="hidden" name="id" value="<%= x.id %>"><br>
-Category - <select name="category_id">
-  <% Category.all.each do |y|%>
-  <option <% if x.category_id == y.id %> selected <%end%> value="<%= y.id %>"><%= y.type.capitalize%></option>
-  <%end%></select><br>
 
-Location - <select name="location_id">
+
+<center><h1> Modify this product and click "submit"</h1><br>
+
+<form action="/product_modified"> 
+  <!-- Adds the id as a hidden variable in the form -->
+  <input type="hidden" name="id" value="<%= x.id %>"><br>
+
+
+  <!-- Creates a dropdown menu with category options-->
+  <!-- Selects the category the product was in -->
+  Category - <select name="category_id">
+  <% Category.all.each do |y|%>
+    <option <% if x.category_id == y.id %> selected <%end%> value="<%= y.id %>"><%= y.type.capitalize%></option>
+  <%end%> 
+  </select> <br>
+
+  <!-- Creates a dropdown menu with location options, with retail displayed if true -->
+  <!-- Selects the location the product was in -->
+  Location - <select name="location_id">
   <% Location.all.each do |y|%>
-  <option <% if x.location_id == y.id %> selected <%end%> value="<%= y.id%>"><%=y.name%><% if y.retail%> - Retail<%end%></option>
-  <%end%></select><br>
+    <option <% if x.location_id == y.id %> selected <%end%> value="<%= y.id%>"><%=y.name%><% if y.retail%> - Retail<%end%></option>
+  <%end%>
+  </select> <br>
   
-Name - <input type="name" value="<%= x.name %>" name="name"> <br>
-Cost - <input type="name" value="<%= x.cost %>" name="cost"><br>
-Quantity - <input type="name" value="<%= x.quantity %>" name="quantity"><br><br>
-<input type="submit">
+  <!-- Creates name, cost, and quantity fields, pre-populated -->
+  Name - <input type="name" value="<%= x.name %>" name="name"> <br>
+
+  Cost - <input type="name" value="<%= x.cost %>" name="cost"> <br>
+
+  Quantity - <input type="name" value="<%= x.quantity %>" name="quantity"><br><br>
+
+  <input type="submit">
+</form>

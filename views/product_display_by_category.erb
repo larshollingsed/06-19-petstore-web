@@ -1,9 +1,28 @@
+<!-- Generates tables to display products grouped by category -->
+
 <% Category.all.each do |x|%>
-<table><tr><td><%= x.type.capitalize%></td></tr>
-  <tr><td>Location</td><td>Name</td><td>Cost</td><td>Quantity</td></tr>
-  <% Product.all_in_category(x.id).each do |y|%>
-  <tr><td><%= Location.find(y.location_id).name%></td><td><%= y.name%></td><td><%= y.cost%></td><td><%= y.quantity%></td></tr>
-  <%end%></table><br>
+  <table>
+    <tr>
+      <td><strong><%= x.type.capitalize%></strong></td>
+    </tr>
+    <tr>
+      <td>Location</td>
+      <td>Name</td>
+      <td>Cost</td>
+      <td>Quantity</td>
+    </tr>
+
+<!-- Generates a table of products for each category-->
+  
+    <% Product.all_in_category(x.id).each do |y|%>
+      <tr>
+        <td><%= Location.find(y.location_id).name%></td>
+        <td><%= y.name%></td>
+        <td><%= y.cost%></td>
+        <td><%= y.quantity%></td>
+      </tr>
+    <%end%>
+  </table><br><br>
 <%end%>
-<Br><br>
+
 <a href="/menu">Return to main menu</a>

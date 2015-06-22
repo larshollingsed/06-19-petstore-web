@@ -1,7 +1,23 @@
+<!-- Creates a table showing all products -->
+<!-- Also shows the total value of each product in inventory - just for fun -->
 <table>
-  <tr><td> Category</td><td> Location </td><td> Name </td><td> Cost </td><td> Quantity</td><td>Total Value</tr>
-  <% Product.all.each do |x| %>
-  <tr><td> <%= Category.find(x.category_id).type%> </td><td> <%= Location.find(x.location_id).name%> </td><td> <%= x.name %> </td><td> <%= x.cost %></td><td><%= x.quantity %></td><td><%= x.cost * x.quantity %></td></tr>
+  <tr>
+    <td> Category</td>
+    <td> Location </td>
+    <td> Name </td>
+    <td> Cost </td>
+    <td> Quantity</td>
+    <td>Total Value</td>
+  </tr>
+<% Product.all.each do |x| %>
+  <tr>
+    <td> <%= Category.find(x.category_id).type%> </td>
+    <td> <%= Location.find(x.location_id).name%> </td>
+    <td> <%= x.name %> </td>
+    <td> <%= x.cost %></td>
+    <td> <%= x.quantity %></td>
+    <td> <%= x.cost * x.quantity %></td></tr>
   <% end %>
-</table>
+</table><br><br>
+
 <a href="/menu">Return to menu</a>

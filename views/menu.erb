@@ -1,3 +1,6 @@
+<!-- Adds various modifiers to notify a user that their most recent action -->
+<!-- completed successfully. -->
+
 <% if @del%><%=@del.name%> was deleted!<%end%>
 
 <% if @new_product%><%=@new_product.name.capitalize%> was added to <%=Location.find(@new_product.location_id)%>!<%end%>

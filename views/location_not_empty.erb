@@ -1,14 +1,26 @@
+<!-- User is directed to this page when they try to delete a location that still has products in it -->
+
 <center><h2>These objects are still at the <%=@del.name%>.  Please move or delete them before deleting this location.</h2>
 
+<!-- Shows the user which products are still at the location they tried to delete -->
 <table>
-  <tr><td>Category</td><td>Name</td><td>Cost</td><td>Quantity</td></tr>
+  <tr>
+    <td>Category</td>
+    <td>Name</td>
+    <td>Cost</td>
+    <td>Quantity</td>
+  </tr>
   <% Product.all_at_location(@del.id).each do |y|%>
-  <tr><td><%= Category.find(y.category_id).type%></td>
-    <td><%= y.name%></td> 
-    <td><%= y.cost%></td> 
-    <td><%= y.quantity%></td></tr>
-  <%end%></table><br>
+    <tr>
+      <td><%= Category.find(y.category_id).type%></td>
+      <td><%= y.name%></td> 
+      <td><%= y.cost%></td> 
+      <td><%= y.quantity%></td>
+    </tr>
+  <%end%>
+</table><br><br>
   
+<!-- Provides links to modify or delete products -->  
 <a href="/modify_product_form">Move a product</a><br>
 <a href="/delete_product_form">Delete a product</a><br>
 

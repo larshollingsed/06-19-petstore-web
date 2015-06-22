@@ -1,7 +1,21 @@
+<!-- Creates a table listing all locations-->
+<!-- Adds a radio button next to each with a value of its id-->
+
 <h1> Which location would you like to delete? </h1>
+
 <form action="/location_deleted">
-  <table><tr><td>Name</td><td>Address</td><td>Retail</td></tr>
-    <% Location.all.each do |x|%>
-    <tr><td><input type="radio" name="id" value="<%= x.id%>"><%= x.name%></td><td><%= x.address %></td><td><%= x.retail%></td></tr>
-    <%end%>
-  </table><br><br><input type="submit"></form>
+<table>
+  <tr>
+    <td>Name</td>
+    <td>Address</td>
+    <td>Retail</td>
+  </tr>
+  <% Location.all.each do |x|%>
+  <tr>
+    <td><input type="radio" name="id" value="<%= x.id%>"><%= x.name%></td>
+    <td><%= x.address %></td>
+    <td><%= x.retail%></td>
+  </tr>
+  <%end%>
+</table><br><br>
+<input type="submit"></form>

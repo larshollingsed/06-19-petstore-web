@@ -1,9 +1,25 @@
+<!-- Creates a table with all of the products -->
+<!-- Radio buttons which carry the id value -->
+
 <h1>Which product would you like to delete?</h1>
 <table>
-  <tr><td> Name</td><td> Location</td><td> Category </td><td> Cost </td><td> Quantity</td></tr>
-<form action="/delete_product">
+  <tr>
+    <td> Name</td>
+    <td> Location</td>
+    <td> Category </td>
+    <td> Cost </td>
+    <td> Quantity</td>
+  </tr>
+
+  <form action="/delete_product">
   <% Product.all.each do |x| %>
-  <tr><td><input type="radio" name="id" value="<%= x.id %>"><%= x.name%> </td><td> <%= Location.find(x.location_id).name%> </td><td> <%= Category.find(x.category_id).type %> </td><td> <%= x.cost %></td><td><%= x.quantity%></td></tr>
+    <tr>
+      <td><input type="radio" name="id" value="<%= x.id %>"><%= x.name%> </td>
+      <td> <%= Location.find(x.location_id).name%> </td>
+      <td> <%= Category.find(x.category_id).type %> </td>
+      <td> <%= x.cost %></td>
+      <td> <%= x.quantity%></td>
+    </tr>
   <%end%>
-  <input type="submit">
-</form>
+</table><br><br>
+<input type="submit"></form>

@@ -56,23 +56,25 @@ get "/delete_product" do
   erb :"menu"
 end
 
+# Takes the user to the new location form
 get "/new_location_form" do
   erb :"new_location_form"
 end
-  
+
+# Adds the location to the database and sends them back to the menu with a variable to notify them that addition was successful.  
 get "/new_location_added" do
   @location = Location.new("name" => params["name"], "address" => params["address"], "retail" => params["retail"])
-  if @location.add_to_database
-    erb :"menu"
-  else
-    "Failed to add location"
-  end
+  @location.add_to_database
+  erb :"menu"
 end
 
+# Takes the user to the delete location form
 get "/delete_location_form" do
   erb :"delete_location_form"
 end
 
+# Returns user to the menu with a confirmation message if the location was deleted successfull.
+# If not succesful takes them to the location_not_empty page.
 get "/location_deleted" do
   @del = Location.find(params["id"])
   if @del.delete_if_empty
@@ -82,22 +84,28 @@ get "/location_deleted" do
   end
 end
 
+# Takes user to the inventory values page
 get "/inventory_values" do
   erb :"inventory_values"
 end
   
+# Takes user to the show locations page
 get "/show_locations" do
   erb :"show_locations"
 end
 
+# Takes user to the modify product form
 get "/modify_product_form" do
   erb :"modify_product_form"
 end
 
+# After selecting which product to modify, this takes them to a form for that specific product.
 get "/modify_product_form_2" do
   erb :"modify_product_form_2"
 end
 
+# If modification of product is successful then returns them to the menu with a confimation message.
+# If non-successful returns them to the modify product form with a message about animals in non-retail
 get "/product_modified" do
   x = {"id" => params["id"].to_i, "location_id" => params["location_id"].to_i, "category_id" => params["category_id"].to_i, "name" => params["name"], "cost" => params["cost"].to_f, "quantity" => params["quantity"].to_i}
   @modify = Product.new(x)
@@ -110,14 +118,17 @@ get "/product_modified" do
   end
 end
 
+# Takes the user to the modify location form
 get "/modify_location_form" do
   erb :"modify_location_form"
 end
 
+# Takes the user to a location modification form for a specific location
 get "/modify_location_form_2" do
   erb :"modify_location_form_2"
 end
 
+# Modifies a location and returns user to the menu with a confirmation message
 get "/location_modified" do
   x = {"id" => params["id"].to_i, "name" => params["name"], "address" => params["address"], "retail" => params["retail"]}
   @modify = Location.new(x)
@@ -125,110 +136,12 @@ get "/location_modified" do
   erb :"menu"
 end
 
+# Takes the user to the product display by location page
 get "/product_display_by_location" do
   erb :"product_display_by_location"
 end
 
+# Takes the user to the product display by category page
 get "/product_display_by_category" do
   erb :"product_display_by_category"
 end
-
-#     # Modify product
-#   elsif answer == 3
-#     Helper.list_products
-#     puts "Which product \# would you like to modify?"
-#     product = Product.find(gets.chomp.to_i)
-#     puts "Which field would you like to modify?", "location_id, category_id, name, cost, quantity"
-#     old = gets.chomp.to_s
-#     puts "What would you like to change it to?"
-#     product.send("#{old}=", gets.chomp)
-#     product.save
-#
-#     # Delete location
-#   elsif answer == 6
-#     Helper.list_locations
-#     puts "Which location \# would you like to delete?"
-#     del = Location.find(gets.chomp.to_i)
-#     if del.delete_if_empty
-#       puts "Location deleted"
-#     else
-#       puts "These are still at that location; must be moved first."
-#       puts "ID - Category - Name - Cost - Quantity"
-#       Helper.list_of_products(Product.all_at_location(choice))
-#     end
-#
-#     # Modify location
-#   elsif answer == 7
-#     Helper.list_locations
-#     loc = {}
-#     puts "Which location \# would you like to modify?"
-#     location = Location.find(gets.chomp.to_i)
-#     puts "Which field would you like to modify?", "name, address, retail"
-#     old = gets.chomp.to_s
-#     puts "What would you like to change it to?"
-#     location.send("#{old}=", gets.chomp)
-#     location.save
-#     puts "Location modified."
-#
-#     # See all locations
-#   elsif answer == 8
-#     Helper.list_locations
-#
-#     # Move product location
-#   elsif answer == 9
-#     Helper.list_products
-#     puts "Which product \# would you like to move?"
-#     move_product = Product.find(gets.chomp.to_i)
-#     Helper.list_locations
-#     puts "Which location \# would you like to move it to?"
-#     # If the new location is not retail and the product to be moved in an animal
-#     # Will not allow the move
-#     if move_product.move(gets.chomp.to_i)
-#       move_product.save
-#       puts "Product moved."
-#     else
-#       puts "Failed to move product."
-#     end
-#
-#     # Fetch all products in a category
-#   elsif answer == 10
-#     Helper.list_categories
-#     puts "Which category \# would you like to see the products in?"
-#     cat = gets.chomp.to_i
-#     puts "ID - Loc - Name - Cost - Quantity"
-#     Helper.list_of_products(Product.all_in_category(cat))
-#
-#     # Fetch all products from location
-#   elsif answer == 11
-#     Helper.list_locations
-#     puts "Which location \# would you like to see the products at?"
-#     location = gets.chomp.to_i
-#     puts "ID - Category - Name - Cost - Quantity"
-#     Helper.list_of_products(Product.all_at_location(location))
-#
-#     # Inventory values
-#   elsif answer == 12
-#     puts "Would you like to see the:", "1 - total inventory value", "2 - inventory value for a specific location", "3 - inventory value for a specific category"
-#     answer = gets.chomp.to_i
-#
-#     # Total inventory value
-#     if answer == 1
-#       puts "The total value of all inventory is #{Product.inventory_value}"
-#
-#     # Inventory value at a specific location
-#     elsif answer == 2
-#       Helper.list_locations
-#       puts "Location \#:"
-#       puts "The total value of inventory at this location is #{Location.find(gets.chomp.to_i).inventory_value}"
-#
-#     # Inventory value for a specific category
-#     elsif answer == 3
-#       Helper.list_categories
-#       puts "Category \#:"
-#       puts "The total value of all items in this category is #{Category.find(gets.chomp.to_i).inventory_value}"
-#     end
-#   end
-#
-#   puts "What would you like to do?", "1 - Add a new product", "2 - Delete a product", "3 - Modify a product", "4 - Show all products", "5 - Add a location", "6 - Delete a location", "7 - Modify a location", "8 - See all locations", "9 - Move product location", "10 - Fetch all products in a category", "11 - Fetch all products from a location", "12 - Inventory values", "0 to quit"
-#   answer = gets.chomp.to_i
-# end

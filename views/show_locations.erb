@@ -1,7 +1,19 @@
+<!-- Creates a table of all locations -->
+
 <h1>List of Locations</h1>
-<table><tr><td>Name</td><td>Address</td><td>Retail?</td></tr>
+<table>
+  <tr>
+    <td>Name</td>
+    <td>Address</td>
+    <td>Retail?</td>
+  </tr>
   <% Location.all.each do |x| %>
-  <tr><td><%= x.name %></td><td><%= x.address %></td><td><%= x.retail %></td></tr>
+    <tr>
+      <td><%= x.name %></td>
+      <td><%= x.address %></td>
+      <td><%= x.retail %></td>
+    </tr>
   <%end%>
-</table><br>
+</table><br><br>
+
 <a href="/menu">Return to main menu</a>
