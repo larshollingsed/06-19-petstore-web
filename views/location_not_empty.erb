@@ -1,0 +1,12 @@
+<center><h2>These objects are still at the <%=@del.name%>.  Please move or delete them before deleting this location.</h2>
+
+<table>
+  <tr><td>Category</td><td>Name</td><td>Cost</td><td>Quantity</td></tr>
+  <% Product.all_at_location(@del.id).each do |y|%>
+  <tr><td><%= Category.find(y.category_id).type%></td><td><%= y.name%></td><td><%= y.cost%></td><td><%= y.quantity%></td></tr>
+  <%end%></table><br>
+  
+<a href="/modify_product_form">Move a product</a><br>
+<a href="/delete_product_form">Delete a product</a><br>
+
+<a href="/menu">Return to menu</a>

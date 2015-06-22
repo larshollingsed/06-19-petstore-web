@@ -69,11 +69,11 @@ get "/delete_location_form" do
 end
 
 get "/location_deleted" do
-  del = Location.find(params["id"])
-  if del.delete_if_empty
+  @del = Location.find(params["id"])
+  if @del.delete_if_empty
     erb :"menu"
   else
-    "Items still at that location; must be moved first."
+    erb :"location_not_empty"
   end
 end
 
