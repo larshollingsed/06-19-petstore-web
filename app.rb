@@ -51,8 +51,11 @@ end
 # Deletes product from database
 # Also sends a variable on the way to the menu to notify the user that deletion was successful.
 get "/delete_product" do
-  @del = Product.find(params["id"])
-  @del.delete
+  @del = []
+  params["id"].each do |x|
+    @del << Product.find(x)
+    Product.find(x).delete
+  end
   erb :"menu"
 end
 

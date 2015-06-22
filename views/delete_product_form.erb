@@ -4,11 +4,11 @@
 <h1>Which product would you like to delete?</h1>
 <table>
   <tr>
-    <td> Name</td>
-    <td> Location</td>
+    <td> Name </td>
+    <td> Location </td>
     <td> Category </td>
     <td> Cost </td>
-    <td> Quantity</td>
+    <td> Quantity </td>
   </tr>
 
   <form action="/delete_product">
@@ -16,7 +16,7 @@
       <tr>
         <td>
           <label for="<%= x.id %>">
-          <input type="radio" name="id" value="<%= x.id %>" id="<%= x.id %>"> <%= x.name %> </td>
+          <input type="checkbox" name="id[]" value="<%= x.id %>" id="<%= x.id %>"> <%= x.name %> </td>
         
         <!-- If user is sent here after trying to delete a location that -->
         <!--   still has porducts at it this will show them which objects --> 

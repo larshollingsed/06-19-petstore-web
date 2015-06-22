@@ -2,8 +2,11 @@
 <!-- completed successfully. -->
 
 <% if @del %>
-  <%= @del.name %> was deleted!
+  <% @del.each do |x|%>
+  <%= x.name %> was deleted!<br>
+  <% end %>
 <% end %>
+
 
 <% if @new_product %>
   <%= @new_product.name.capitalize %> was added to the <%= Location.find(@new_product.location_id).name %>!
