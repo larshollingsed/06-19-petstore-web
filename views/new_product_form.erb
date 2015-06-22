@@ -1,17 +1,16 @@
-<ul><li>ID  -  Name  -  Address  -  Retail?</li>
-<% Location.all.each do |x| %>
-<li><%= x.id %> - <%= x.name %> - <%= x.address %> - <%= x.retail %></li>
-<% end %>
-</ul>
-<ul><li>ID  -  Category</li>
-<% Category.all.each do |x| %>
-<li><%= x.id %> - <%= x.type %></li>
-<% end %>
+<h1>Enter new product information</h1>
 <ul><form action="/add_new_product">
-  <li><input type="number" name="location_id" placeholder="Enter Location #"></li>
-  <li><input type="number" name="category_id" placehold="Enter Category #"></li>
-  <li><input type="name" name="name" placeholder="Enter name of new product"></li>
-  <li><input type="number" name="cost" placeholder="Enter cost"></li>
-  <li><input type="number" name="quantity" placeholder="Enter quantity"></li>
+<li>Category ID - <select name="category_id">
+  <% Category.all.each do |y|%>
+  <option value="<%= y.id %>"><%= y.type.capitalize%></option>
+  <%end%></select></li>
+
+<li>Location ID - <select name="location_id">
+  <% Location.all.each do |y|%>
+  <option value="<%= y.id%>"><%=y.name%> <% if y.retail%>- Retail<%end%></option>
+  <%end%></select><br></li>
+  <li>Name - <input type="name" name="name" placeholder="Enter name of new product"></li>
+  <li>Cost - <input type="number" name="cost" placeholder="Enter cost"></li>
+  <li>Quantity - <input type="number" name="quantity" placeholder="Enter quantity"></li>
   <li><input type="submit"></li>
 </form></ul>

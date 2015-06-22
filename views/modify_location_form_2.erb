@@ -1,6 +1,7 @@
 <% x = Location.find(params["id"].to_i)%>
+<center><h1>Modify this location and click "submit"<br></h1>
 <form action="/location_modified">
-  Location ID - <input readonly value="<%= x.id %>" name = "id"><br>
+  <input type="hidden" value="<%= x.id %>" name = "id"><br>
   Name - <input type="name" name="name" value="<%= x.name %>"><br>
   Address - <input type="name" name="address" value="<%= x.address %>"><br>
   Retail -   <input <% if x.retail == true %> checked <%end%> type="radio" name="retail" value="yes">Yes

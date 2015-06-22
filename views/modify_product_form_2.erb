@@ -1,7 +1,15 @@
 <% x = Product.find(params["id"])%>
-Product ID - <form action="/product_modified"> <input readonly name="id" value="<%= x.id %>"><br>
-Category ID - <input type="number" value="<%= x.category_id%>" name="category_id"><br>
-Location ID - <input type="number" value="<%= x.location_id%>" name="location_id"> <br>
+<center><h1> Modify this product and click "submit"</h1><br><form action="/product_modified"> <input type="hidden" name="id" value="<%= x.id %>"><br>
+Category - <select name="category_id">
+  <% Category.all.each do |y|%>
+  <option <% if x.category_id == y.id %> selected <%end%> value="<%= y.id %>"><%= y.type.capitalize%></option>
+  <%end%></select><br>
+
+Location - <select name="location_id">
+  <% Location.all.each do |y|%>
+  <option <% if x.location_id == y.id %> selected <%end%> value="<%= y.id%>"><%=y.name%><% if y.retail%> - Retail<%end%></option>
+  <%end%></select><br>
+  
 Name - <input type="name" value="<%= x.name %>" name="name"> <br>
 Cost - <input type="name" value="<%= x.cost %>" name="cost"><br>
 Quantity - <input type="name" value="<%= x.quantity %>" name="quantity"><br><br>
