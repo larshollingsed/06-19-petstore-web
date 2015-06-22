@@ -25,9 +25,10 @@ end
 get "/add_new_product" do
   @product = Product.new({"location_id" => params["location_id"].to_i, "category_id" => params["category_id"].to_i, "name" => params["name"], "cost" => params["cost"].to_i, "quantity" => params["quantity"].to_i})
   if @product.add_to_database 
-    erb :"added_new_product"
+    erb :"menu"
   else
-    "Failed to add product"
+    @animal_in_non_retail = true
+    erb :"new_product_form"
   end
 end
 
@@ -99,7 +100,8 @@ get "/product_modified" do
     product.save
     erb :"menu"
   else
-    "Failed to modify product."
+    @animal_in_non_retail = true
+    erb :modify_product_form_2
   end
 end
 

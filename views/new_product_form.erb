@@ -1,16 +1,20 @@
+<% if @animal_in_non_retail %> <h3>Animals may not be added to non-retail locations!</h3><%end%>
+
 <h1>Enter new product information</h1>
 <ul><form action="/add_new_product">
 <li>Category ID - <select name="category_id">
   <% Category.all.each do |y|%>
-  <option value="<%= y.id %>"><%= y.type.capitalize%></option>
+  <option value="<%= y.id %>" <% if params["category_id"].to_i == y.id %> selected <%end%>><%= y.type.capitalize%></option>
   <%end%></select></li>
 
 <li>Location ID - <select name="location_id">
   <% Location.all.each do |y|%>
-  <option value="<%= y.id%>"><%=y.name%> <% if y.retail%>- Retail<%end%></option>
+  binding.pry
+  <option value="<%= y.id%>" <% if params["location_id"].to_i == y.id %> selected <%end%> > <%=y.name%> <% if y.retail%>- Retail<%end%></option>
   <%end%></select><br></li>
-  <li>Name - <input type="name" name="name" placeholder="Enter name of new product"></li>
-  <li>Cost - <input type="number" name="cost" placeholder="Enter cost"></li>
-  <li>Quantity - <input type="number" name="quantity" placeholder="Enter quantity"></li>
+  
+  <li>Name - <input type="name" name="name" value="<%= params["name"] %>"placeholder="Enter name of new product"></li>
+  <li>Cost - <input type="number" name="cost" value="<%= params["cost"] %>"placeholder="Enter cost"></li>
+  <li>Quantity - <input type="number" name="quantity" value="<%= params["quantity"] %>"placeholder="Enter quantity"></li>
   <li><input type="submit"></li>
 </form></ul>
