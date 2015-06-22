@@ -14,7 +14,10 @@
   <tr>
     <td><input type="radio" name="id" value="<%= x.id %>"><%= x.name%> </td>
     <td> <%= Category.find(x.category_id).type%> </td>
-    <td> <%= Location.find(x.location_id).name%> </td>
+    
+    <!-- If user is sent here after trying to delete a location that still -->
+    <!-- This will show them which objects are at that location -->
+    <td><%if x.location_id == params["location"].to_i%> <b><i> <%end%> <%= Location.find(x.location_id).name%> </td>
     <td> <%= x.cost %> </td>
     <td> <%= x.quantity %></td>
   </tr>

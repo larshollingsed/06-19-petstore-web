@@ -26,7 +26,7 @@ get "/new_product_form" do
 end
 
 # Makes sure an animal isn't being added to a non-retail location.
-# If true then reroutes to the menu.
+# If true then reroutes to the menu (carrying the new Product).
 # If false then returns to the new product form with a message informing the user of the error and populating the form with the info provided previously.
 get "/add_new_product" do
   @new_product = Product.new({"location_id" => params["location_id"].to_i, "category_id" => params["category_id"].to_i, "name" => params["name"], "cost" => params["cost"].to_i, "quantity" => params["quantity"].to_i})
@@ -38,13 +38,13 @@ get "/add_new_product" do
   end
 end
 
-# Shows a list of all product
+# Shows a list of all products
 get "/show_products" do
   erb :"show_products"
 end
 
 # Goes to the delete product form
-get "/delete_product_form" do
+get "/delete_product_form/:location" do
   erb :"delete_product_form"
 end
 
@@ -95,7 +95,7 @@ get "/show_locations" do
 end
 
 # Takes user to the modify product form
-get "/modify_product_form" do
+get "/modify_product_form/:location" do
   erb :"modify_product_form"
 end
 

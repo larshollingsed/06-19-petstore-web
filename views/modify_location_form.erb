@@ -5,17 +5,18 @@
 <form action="/modify_location_form_2">
 <table>
   <tr>
-    <td> ID</td>
+    <td>ID</td>
     <td>Name</td>
     <td>Address</td>
     <td>Retail</td>
   </tr>
   <% Location.all.each do |x|%>
     <tr>
-      <td><input type="radio" name="id" value="<%= x.id%>"></td>
-      <td><%= x.name%></td>
+      <td>
+        <input type="radio" name="id" value="<%= x.id%>"></td>
+      <td><%= x.name %></td>
       <td><%= x.address %></td>
-      <td><%= x.retail%></td>
+      <td><%= x.retail %></td>
     </tr>
   <%end%>
 </table><br><Br>

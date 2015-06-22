@@ -12,7 +12,8 @@
   </tr>
   <% Location.all.each do |x|%>
   <tr>
-    <td><input type="radio" name="id" value="<%= x.id%>"><%= x.name%></td>
+    <td>
+      <input type="radio" name="id" value="<%= x.id%>"><%= x.name%></td>
     <td><%= x.address %></td>
     <td><%= x.retail%></td>
   </tr>

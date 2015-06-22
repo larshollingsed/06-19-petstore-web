@@ -15,27 +15,26 @@
   <!-- Adds the id as a hidden variable in the form -->
   <input type="hidden" name="id" value="<%= x.id %>"><br>
 
-
   <!-- Creates a dropdown menu with category options-->
   <!-- Selects the category the product was in -->
   Category - <select name="category_id">
-  <% Category.all.each do |y|%>
-    <option <% if x.category_id == y.id %> selected <%end%> value="<%= y.id %>"><%= y.type.capitalize%></option>
+  <% Category.all.each do |y| %>
+    <option <% if x.category_id == y.id %> selected <%end%> value="<%= y.id %>"><%= y.type.capitalize %></option>
   <%end%> 
   </select> <br>
 
   <!-- Creates a dropdown menu with location options, with retail displayed if true -->
   <!-- Selects the location the product was in -->
   Location - <select name="location_id">
-  <% Location.all.each do |y|%>
-    <option <% if x.location_id == y.id %> selected <%end%> value="<%= y.id%>"><%=y.name%><% if y.retail%> - Retail<%end%></option>
+  <% Location.all.each do |y| %>
+    <option <% if x.location_id == y.id %> selected <%end%> value="<%= y.id%>"><%= y.name %><% if y.retail %> - Retail<%end%></option>
   <%end%>
   </select> <br>
   
   <!-- Creates name, cost, and quantity fields, pre-populated -->
   Name - <input type="name" value="<%= x.name %>" name="name"> <br>
 
-  Cost - <input type="name" value="<%= x.cost %>" name="cost"> <br>
+  Cost - <input type="name" step="0.01" value="<%= x.cost %>" name="cost"> <br>
 
   Quantity - <input type="name" value="<%= x.quantity %>" name="quantity"><br><br>
 

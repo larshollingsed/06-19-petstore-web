@@ -1,19 +1,27 @@
 <!-- Adds various modifiers to notify a user that their most recent action -->
 <!-- completed successfully. -->
 
-<% if @del%><%=@del.name%> was deleted!<%end%>
+<% if @del %>
+  <%= @del.name %> was deleted!
+<% end %>
 
-<% if @new_product%><%=@new_product.name.capitalize%> was added to <%=Location.find(@new_product.location_id)%>!<%end%>
+<% if @new_product %>
+  <%= @new_product.name.capitalize %> was added to <%= Location.find(@new_product.location_id) %>!
+<% end %>
 
-<% if @location%><%=@location.name%> was added!<%end%>
+<% if @location%>
+  <%=@location.name%> was added!
+<% end %>
 
-<% if @modify%><%=@modify.name%> was modified!<%end%>
+<% if @modify%>
+  <%=@modify.name%> was modified!
+<% end %>
 
 <h1>What would you like to do?</h1>
 <ul>
 <li><a href="/new_product_form">Add a new product</a> </li>
-<li><a href="/delete_product_form">Delete a product</a></li>
-<li><a href="/modify_product_form">Modify a product</a></li>
+<li><a href="/delete_product_form/:">Delete a product</a></li>
+<li><a href="/modify_product_form/:">Modify a product</a></li>
 <li><a href="/show_products">Show all products</a></li>
 <li><a href="/new_location_form">Add a location</a></li>
 <li><a href="/delete_location_form">Delete a location</a></li>
@@ -22,5 +30,4 @@
 <li><a href="/product_display_by_category">Display products by category</a></li>
 <li><a href="/product_display_by_location">Display products by location</a></li>
 <li><a href="/inventory_values">Inventory values</a></li>
-
 </ul>

@@ -8,12 +8,24 @@
   <input type="hidden" value="<%= x.id %>" name = "id"><br>
 
 <!-- Creates a form with the fields pre-populated with existing information -->
-  Name - <input type="name" name="name" value="<%= x.name %>"><br>
+  Name - 
+  <input type="name" name="name" value="<%= x.name %>"><br>
   
-  Address - <input type="name" name="address" value="<%= x.address %>"><br>
+  Address - 
+  <input type="name" name="address" value="<%= x.address %>"><br>
   
-  Retail - <input <% if x.retail == true %> checked <%end%> type="radio" name="retail" value="yes">Yes
-  <input <% if x.retail == nil %> checked <%end%> type="radio" name="retail" value="no">No<br><br>
+  Retail - 
+  <input 
+  <% if x.retail == true %> 
+    checked 
+  <%end%> 
+  type="radio" name="retail" value="yes">Yes
+  
+  <input 
+  <% if x.retail == nil %> 
+    checked 
+  <%end%> 
+  type="radio" name="retail" value="no">No<br><br>
   
   <input type="submit">
 </form>

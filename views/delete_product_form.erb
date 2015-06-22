@@ -12,14 +12,22 @@
   </tr>
 
   <form action="/delete_product">
-  <% Product.all.each do |x| %>
-    <tr>
-      <td><input type="radio" name="id" value="<%= x.id %>"><%= x.name%> </td>
-      <td> <%= Location.find(x.location_id).name%> </td>
-      <td> <%= Category.find(x.category_id).type %> </td>
-      <td> <%= x.cost %></td>
-      <td> <%= x.quantity%></td>
-    </tr>
-  <%end%>
+    <% Product.all.each do |x| %>
+      <tr>
+        <td>
+          <input type="radio" name="id" value="<%= x.id %>"><%= x.name%> </td>
+        
+        <!-- If user is sent here after trying to delete a location that -->
+        <!--   still has porducts at it this will show them which objects --> 
+        <!--   at that location -->
+        <td> <%if x.location_id == params["location"].to_i %> 
+               <b><i> 
+             <% end %> 
+             <%= Location.find(x.location_id).name %> </td>
+        <td> <%= Category.find(x.category_id).type %> </td>
+        <td> <%= x.cost %></td>
+        <td> <%= x.quantity %></td>
+      </tr>
+    <% end %>
 </table><br><br>
 <input type="submit"></form>
