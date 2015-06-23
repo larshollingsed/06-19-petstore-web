@@ -1,6 +1,7 @@
 <!-- Creates a table with all of the products -->
 <!-- Radio buttons which carry the id value -->
 
+<% if @delete%><h2>The products that you selected from the <%= Location.find(Product.find(@delete.first).location_id).name %> are already checked for you to delete.</h2> <% end %>
 <h1>Which product would you like to delete?</h1>
 <table>
   <tr>
@@ -16,7 +17,10 @@
       <tr>
         <td>
           <label for="<%= x.id %>">
-          <input type="checkbox" name="id[]" value="<%= x.id %>" id="<%= x.id %>"> <%= x.name %> </td>
+<!-- If the user was directed here after trying to delete a location with -->
+<!-- products still in it, this will check their checkboxes automatically -->
+          <input <% if @delete.include?(x.id.to_s)%> checked <% end %>
+          type="checkbox" name="id[]" value="<%= x.id %>" id="<%= x.id %>"> <%= x.name %> </td>
         
         <!-- If user is sent here after trying to delete a location that -->
         <!--   still has porducts at it this will show them which objects --> 

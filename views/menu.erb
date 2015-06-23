@@ -1,23 +1,25 @@
 <!-- Adds various modifiers to notify a user that their most recent action -->
 <!-- completed successfully. -->
 
-<% if @del %>
+<% if @del.is_a?(Array) %>
   <% @del.each do |x|%>
-  <%= x.name %> was deleted!<br>
+    <%= x.name %> was deleted<br>
   <% end %>
+<%elsif @del%>
+  <% @del.name %> was deleted
 <% end %>
 
 
 <% if @new_product %>
-  <%= @new_product.name.capitalize %> was added to the <%= Location.find(@new_product.location_id).name %>!
+  <%= @new_product.name.capitalize %> was added to the <%= Location.find(@new_product.location_id).name %>
 <% end %>
 
 <% if @location%>
-  <%=@location.name%> was added!
+  <%= @location.name %> was added
 <% end %>
 
 <% if @modify%>
-  <%=@modify.name%> was modified!
+  <%= @modify.name %> was modified
 <% end %>
 
 <h1>What would you like to do?</h1>

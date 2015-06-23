@@ -148,3 +148,13 @@ end
 get "/product_display_by_category" do
   erb :"product_display_by_category"
 end
+
+get "/modify_or_delete_products" do
+  if params["delete_id"]
+    @delete = params["delete_id"]
+    erb :"delete_product_form"
+  elsif params["modify_id"]
+    @modify_id = params["modify_id"]
+    erb :"modify_product_form_2"
+  end
+end

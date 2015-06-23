@@ -9,20 +9,26 @@
     <td>Name</td>
     <td>Cost</td>
     <td>Quantity</td>
+    <td>Delete?</td>
+    <td>Modify?</td>
   </tr>
+  <form action="/modify_or_delete_products">
   <% Product.all_at_location(@del.id).each do |y| %>
     <tr>
       <td><%= Category.find(y.category_id).type %></td>
       <td><%= y.name%></td> 
       <td><%= y.cost%></td> 
       <td><%= y.quantity%></td>
+      <td><input type="checkbox" name="delete_id[]" value="<%= y.id %>"></td>
+      <td><input type="radio" name="modify_id" value="<%= y.id %>"></td>
     </tr>
   <%end%>
 </table><br><br>
+<input type="submit"></form><Br><br>
   
 <!-- Provides links to modify or delete products -->
 <!-- Sends user there with location id attached to highlight problematic products -->  
-<a href="/modify_product_form/<%= @del.id %>">Move a product</a><br>
-<a href="/delete_product_form/<%= @del.id %>">Delete a product</a><br>
+<!-- <a href="/modify_product_form/<%= @del.id %>">Move a product</a><br>
+<a href="/delete_product_form/<%= @del.id %>">Delete selected product(s)</a><br> -->
 
 <a href="/menu">Return to menu</a>

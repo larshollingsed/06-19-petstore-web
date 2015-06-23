@@ -4,10 +4,13 @@
 <% if @animal_in_non_retail %> 
   <h3>Animals may not be added to non-retail locations!</h3>
 <%end%>
-
+<% if params["id"]%>
+  <% x = Product.find(params["id"])%>
+<% end %>
 <!-- Creates a Product object to populate the form -->
-<% x = Product.find(params["id"])%>
-
+<% if @modify_id %>
+  <% x = Product.find(@modify_id)%>
+<% end %>
 
 <center><h1> Modify this product and click "submit"</h1><br>
 
@@ -27,7 +30,19 @@
   <!-- Selects the location the product was in -->
   Location - <select name="location_id">
   <% Location.all.each do |y| %>
-    <option <% if x.location_id == y.id %> selected <%end%> value="<%= y.id%>"><%= y.name %><% if y.retail %> - Retail<%end%></option>
+    <option <% if x.location_id == y.id %> 
+              selected 
+            <%end%> 
+            value="<%= y.id%>">
+            <%= y.name %> 
+            <% if y.retail %>
+               - Retail 
+            <% end %>
+            <% if @modify_id && Product.find(@modify_id).location_id == y.id%>
+              <!-- Product.find(@modify_id).location_id == y.id %> -->
+              (Please move from this location)
+            <% end %>
+    </option>
   <%end%>
   </select> <br>
   
