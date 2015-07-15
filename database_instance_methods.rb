@@ -12,8 +12,8 @@ module DatabaseInstanceMethods
   def hash_to_object(x)  
     y = []
     x.each do |z|
-      product = Product.new(z)
-      y << product
+      item = self.new(z)
+      y << item
     end
     y
   end
@@ -45,32 +45,4 @@ module DatabaseInstanceMethods
  
     return self
   end
-  
-  # def add
- #    table_name = self.class.to_s.pluralize.downcase
- #    column_names = self.instance_variables
- #    values = []
- #    column_names.each do |x|
- #      values << self.instance_variable_get(x)
- #    end
- #    binding.pry
- #    column_names_for_sql = column_names.join(", ")
- #    individual_values_for_sql = []
- #    values.each do |value|
- #      if value.is_a?(String)
- #        individual_values_for_sql << "'#{value}'"
- #      else
- #        individual_values_for_sql << value
- #      end
- #    end
- #    values_for_sql = individual_values_for_sql.join(", ")
- #    table_name = self.to_s.pluralize.underscore
- #
- #    DB.execute("INSERT INTO #{table_name} (#{column_names_for_sql}) VALUES (#{values_for_sql});")
- #
- #    id = DB.last_insert_row_id
- #    options["id"] = id
- #
- #    self.new(args)
- #  end
 end

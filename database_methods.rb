@@ -45,9 +45,10 @@ module DatabaseClassMethods
         individual_values_for_sql << value
       end  
     end
+    binding.pry
     values_for_sql = individual_values_for_sql.join(", ")
     table_name = self.to_s.pluralize.underscore
-  
+    
     DB.execute("INSERT INTO #{table_name} (#{column_names_for_sql}) VALUES (#{values_for_sql});")
 
     id = DB.last_insert_row_id
