@@ -1,0 +1,36 @@
+<h2>
+  All Users
+</h2>
+
+<table>
+  <tr>
+    <th>
+      id
+    </th>
+    <th>
+      E-mail
+    </th>
+    <th>
+      Authorization Level
+    </th>
+    <th>
+      Location Owned
+    </th>
+  </tr>
+  <% User.all.each do |user| %>
+    <tr>
+      <td>
+        <%= user.id %>
+      </td>
+      <td>
+        <%= user.email %>
+      </td>
+      <td>
+        <%= user.auth_level %>
+      </td>
+      <td>
+        <%= user.location_owned %>
+      </td>
+    </tr>
+  <% end %>
+</table>
