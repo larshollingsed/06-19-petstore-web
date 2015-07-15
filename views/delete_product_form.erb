@@ -19,7 +19,7 @@
           <label for="<%= x.id %>">
 <!-- If the user was directed here after trying to delete a location with -->
 <!-- products still in it, this will check their checkboxes automatically -->
-          <input <% if @delete.include?(x.id.to_s)%> checked <% end %>
+          <input <% if @delete %><% if @delete.include?(x.id.to_s)%> checked <% end %> <% end %>
           type="checkbox" name="id[]" value="<%= x.id %>" id="<%= x.id %>"> <%= x.name %> </td>
         
         <!-- If user is sent here after trying to delete a location that -->

@@ -5,6 +5,7 @@ require "pry"
 require_relative "module.rb"
 require_relative "orm.rb"
 require "sinatra/reloader"
+require_relative "database_setup.rb"
 
 
 require_relative "./controllers/location_controller.rb"

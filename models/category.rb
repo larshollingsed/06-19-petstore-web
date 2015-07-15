@@ -1,5 +1,6 @@
-require_relative "database_methods.rb"
-require_relative "database_instance_methods.rb"
+require_relative "../database_methods.rb"
+require_relative "../database_instance_methods.rb"
+
 class Category
   extend DatabaseClassMethods
   include DatabaseInstanceMethods
