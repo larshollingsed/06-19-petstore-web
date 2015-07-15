@@ -1,0 +1,37 @@
+<h3>
+  Add user
+</h3>
+<form action="add_user_confirm">
+  <p>
+    Email - <input type="text" name="new_user[email]">
+  </p>
+  <p>
+    Password - <input type="text" name="new_user[password]">
+  </p>
+  <p>
+    Authorization Level - <input type="number" name="new_user[auth_level]">
+  </p>
+  <p>
+    Location Owned? - 
+      <select name="new_user[location_owned]">
+        <option value="">
+          Not an owner
+        </option>
+        <% Location.all.each do |y|%>
+          <option value="<%= y.id %>">
+            <%= y.name.capitalize%>
+          </option>
+        <%end%>
+      </select>
+    </p>
+    
+    
+    
+  <input type="submit" id="submitter" value="Create new User">
+</form>
+
+<p id="confirm">
+</p>
+
+<script src="/new_user.js" type="text/javascript">
+</script>
