@@ -9,6 +9,9 @@
   <% @del.name %> was deleted
 <% end %>
 
+<% if @new_user %>
+  <%= @new_user.email %> has been registered
+<% end %>
 
 <% if @new_product %>
   <%= @new_product.name.capitalize %> was added to the <%= Location.find(@new_product.location_id).name %>

@@ -15,6 +15,7 @@ require_relative "./controllers/user_controller.rb"
 require_relative "./models/category.rb"
 require_relative "./models/location.rb"
 require_relative "./models/product.rb"
+require_relative "./models/user.rb"
 
 #-------------------------------------------------------------------------------
 

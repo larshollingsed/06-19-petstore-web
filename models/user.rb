@@ -6,6 +6,8 @@ class User
   extend DatabaseClassMethods
   include DatabaseInstanceMethods
   
+  attr_accessor :id, :email, :password, :location_owned, :auth_level
+  
   def initialize(args={})
     @id = args["id"]
     @email = args["email"]
