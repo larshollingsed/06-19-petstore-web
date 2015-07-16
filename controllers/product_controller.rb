@@ -68,7 +68,7 @@ end
 
 # Takes the user to the product display by category page
 get "/product_display_by_category" do
-  erb :"product_display_by_category"
+  authorize(4, :"product_display_by_category")
 end
 
 get "/modify_or_delete_products" do

@@ -1,5 +1,17 @@
 set :sessions => true
 
+helpers do
+  def authorize(minimum_level, erb_destination)
+    if @user
+      if @user.auth_level >= minimum_level
+        erb erb_destination
+      end
+    else
+      "Not authorized"
+    end
+  end
+end
+
 before do
   if !session["user_id"]
     erb :"/user/login"
@@ -14,7 +26,7 @@ get "/logout" do
 end
 
 get "/add_new_user" do
-  erb :"/user/add_user_form"
+  authorize(4, :"/user/add_user_form")
 end
 
 get "/add_user_confirm" do
@@ -24,7 +36,7 @@ get "/add_user_confirm" do
 end
 
 get "/see_all_users" do
-  erb :"/user/see_all_users"
+    erb :"/user/see_all_users"
 end
 
 get "/login" do
