@@ -15,22 +15,32 @@ helpers do
   #    is not authorized
   # returns erb if authorized OR failure text if not authorized
   def authorize(minimum_level, erb_destination, locations_involved: nil, not_authorized_message: nil)
+    # sets authorized to false to be checked at the end
     authorized = false
     
+    # checks to see if the browser is logged in
     if @user
-      binding.pry
+      
+      # checks to see if the authorization level of the user is greater than
+      # the minimum level passed in in the parameters
       if @user.auth_level >= minimum_level
-        binding.pry
+        # if true then authorized is set to true
         authorized = true
-        binding.pry
+        
+      # checks to see if the user owns one of the locations involved
+      # optional parameter if the route involves transfer of products
       elsif locations_involved.includes?(@user.location_owned)
-        binding.pry
+        # if true then sets authorized to true
         authorized = true
       end
     end
-  
+    
+    # if authorized is true then sends the browser to the authorized destination
     if authorized == true
       erb erb_destination
+      
+    # if authorized is false then displays a default message or a more specific
+    # message passed in as an option parameter
     elsif authorized == false
       return not_authorized_message || "Not Authorized :("
     end
