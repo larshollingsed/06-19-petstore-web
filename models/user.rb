@@ -19,8 +19,10 @@ class User
   
   def self.get_user_for_login(email)
     user = DB.execute("SELECT * FROM users WHERE email = '#{email}';")[0]
-    password = BCrypt::Password.new(user["password"])
-    User.new({"id" => user["id"], "password" => password})
+    if user
+      password = BCrypt::Password.new(user["password"])
+      User.new({"id" => user["id"], "password" => password})
+    end
   end
   
   def correct_password?(attempted_password)

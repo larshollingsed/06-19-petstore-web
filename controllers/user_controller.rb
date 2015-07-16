@@ -1,7 +1,7 @@
 set :sessions => true
 
 before do
-  if session["user_id"] == nil
+  if !session["user_id"]
     erb :"/user/login"
   else
     @user = User.find(session["user_id"])
@@ -10,7 +10,7 @@ end
 
 get "/logout" do
   session["user_id"] = nil
-  erb :"/home"
+  erb :"/menu"
 end
 
 get "/add_new_user" do
@@ -33,9 +33,14 @@ end
 
 get "/login_confirm" do
   user_info = User.get_user_for_login(params["login"]["email"])
-  if user_info.correct_password?(params["login"]["password"])
-    session["user_id"] = user_info.id
-    erb :"/menu"
+  if user_info
+    if user_info.correct_password?(params["login"]["password"])
+      session["user_id"] = user_info.id
+      erb :"/menu"
+    else
+      @error = "Invalid log in.  Please try again"
+      erb :"/user/login"
+    end
   else
     @error = "Invalid log in.  Please try again"
     erb :"/user/login"
