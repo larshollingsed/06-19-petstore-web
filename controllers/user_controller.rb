@@ -18,7 +18,8 @@ get "/add_new_user" do
 end
 
 get "/add_user_confirm" do
-  @new_user = User.add({"email" => params["new_user"]["email"], "password" => params["new_user"]["password"], "auth_level" => params["new_user"]["auth_level"], "location_owned" => params["new_user"]["location_owned"]})
+  password = encrypted_password = BCrypt::Password.create(params["new_user"]["password"])
+  @new_user = User.add({"email" => params["new_user"]["email"], "password" => password, "auth_level" => params["new_user"]["auth_level"], "location_owned" => params["new_user"]["location_owned"]})
   erb :"/menu"
 end
 
@@ -28,4 +29,15 @@ end
 
 get "/login" do
   erb :"/user/login"
+end
+
+get "/login_confirm" do
+  user_info = User.get_user_for_login(params["login"]["email"])
+  if user_info.correct_password?(params["login"]["password"])
+    session["user_id"] = user_info.id
+    erb :"/menu"
+  else
+    @error = "Invalid log in.  Please try again"
+    erb :"/user/login"
+  end
 end
