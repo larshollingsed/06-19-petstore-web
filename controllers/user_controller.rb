@@ -34,12 +34,17 @@ helpers do
         # if true then authorized is set to true
         authorized = true
         
-      # checks to see if the user owns one of the locations involved
-      # optional parameter if the route involves transfer of products
-      elsif locations_involved.include?(@user.location_owned)
-        binding.pry
-        # if true then sets authorized to true
-        authorized = true
+      
+      # checks to see if the optional locations_involved parameter was passed
+      elsif locations_involved 
+        
+        # checks to see if the user owns one of the locations involved
+        # optional parameter if the route involves transfer of products
+        if locations_involved.include?(@user.location_owned)
+          
+          # if true then sets authorized to true
+          authorized = true
+        end
       end
     end
     
@@ -48,7 +53,7 @@ helpers do
       erb erb_destination
       
     # if authorized is false then displays a default message or a more specific
-    # message passed in as an option parameter
+    # message passed in as an optional parameter
     elsif authorized == false
       return not_authorized_message || "Not Authorized :("
     end
@@ -69,7 +74,7 @@ get "/logout" do
 end
 
 get "/add_new_user" do
-  authorize(4, :"/user/add_user_form", not_authorized_message: "Must be Larz")
+  authorize(5, :"/user/add_user_form", not_authorized_message: "Must be Larz")
 end
 
 get "/add_user_confirm" do
@@ -79,7 +84,7 @@ get "/add_user_confirm" do
 end
 
 get "/see_all_users" do
-  authorize(4, :"/user/see_all_users", not_authorized_message: "Must be Larz or Larz Jr.")
+  authorize(4, :"/user/see_all_users", not_authorized_message: "Must be Larz || Larz Jr.")
 end
 
 get "/login" do
