@@ -36,7 +36,8 @@ helpers do
         
       # checks to see if the user owns one of the locations involved
       # optional parameter if the route involves transfer of products
-      elsif locations_involved.includes?(@user.location_owned)
+      elsif locations_involved.include?(@user.location_owned)
+        binding.pry
         # if true then sets authorized to true
         authorized = true
       end
@@ -68,7 +69,7 @@ get "/logout" do
 end
 
 get "/add_new_user" do
-  erb :"/user/add_user_form"
+  authorize(4, :"/user/add_user_form", not_authorized_message: "Must be Larz")
 end
 
 get "/add_user_confirm" do
@@ -78,7 +79,7 @@ get "/add_user_confirm" do
 end
 
 get "/see_all_users" do
-    erb :"/user/see_all_users"
+  authorize(4, :"/user/see_all_users", not_authorized_message: "Must be Larz or Larz Jr.")
 end
 
 get "/login" do
