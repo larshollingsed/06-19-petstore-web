@@ -1,15 +1,40 @@
 set :sessions => true
 
 helpers do
-  def authorize(minimum_level, erb_destination)
+  
+  # this method checks to make sure the user is signed in and also checks
+  # their authorization level vs. the parameter minimum_level
+  # if a locations_involved parameter is passed, it makes sure the user
+  # involved is the owner of the location to or from the product is being
+  # moved.  Also includes optional error message if not authorized
+  # minimum_level - INTEGER - minimum authorization level to access this erb
+  # erb_destination - SYMBOL - if authorized, user is sent here
+  # locations_involved(optional) - ARRAY - location_ids of the location a 
+  #    product is being moved from and to
+  # not_authorized_messaged(optional) - message to be displayed if user
+  #    is not authorized
+  # returns erb if authorized OR failure text if not authorized
+  def authorize(minimum_level, erb_destination, locations_involved: nil, not_authorized_message: nil)
+    authorized = false
+    
     if @user
+      binding.pry
       if @user.auth_level >= minimum_level
-        erb erb_destination
+        binding.pry
+        authorized = true
+        binding.pry
+      elsif locations_involved.includes?(@user.location_owned)
+        binding.pry
+        authorized = true
       end
-    else
-      "Not authorized"
     end
+  
+  if authorized == true
+    erb erb_destination
+  elsif authorized == false
+    return not_authorized_message || "Not Authorized :("
   end
+end
 end
 
 before do
@@ -26,7 +51,7 @@ get "/logout" do
 end
 
 get "/add_new_user" do
-  authorize(4, :"/user/add_user_form")
+  erb :"/user/add_user_form"
 end
 
 get "/add_user_confirm" do
