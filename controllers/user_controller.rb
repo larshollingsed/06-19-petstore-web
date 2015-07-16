@@ -29,12 +29,12 @@ helpers do
       end
     end
   
-  if authorized == true
-    erb erb_destination
-  elsif authorized == false
-    return not_authorized_message || "Not Authorized :("
+    if authorized == true
+      erb erb_destination
+    elsif authorized == false
+      return not_authorized_message || "Not Authorized :("
+    end
   end
-end
 end
 
 before do
