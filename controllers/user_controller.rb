@@ -2,17 +2,24 @@ set :sessions => true
 
 helpers do
   
+  # Authorize a user to access an erb (optional location parameters)
+  #
   # this method checks to make sure the user is signed in and also checks
-  # their authorization level vs. the parameter minimum_level
-  # if a locations_involved parameter is passed, it makes sure the user
-  # involved is the owner of the location to or from the product is being
-  # moved.  Also includes optional error message if not authorized
+  #   their authorization level vs. the parameter minimum_level
+  #   if a locations_involved parameter is passed, it makes sure the user
+  #   involved is the owner of the location to or from the product is being
+  #   moved.  Also includes optional error message if not authorized
+  #
   # minimum_level - INTEGER - minimum authorization level to access this erb
+  #
   # erb_destination - SYMBOL - if authorized, user is sent here
+  #
   # locations_involved(optional) - ARRAY - location_ids of the location a 
   #    product is being moved from and to
+  #
   # not_authorized_messaged(optional) - message to be displayed if user
   #    is not authorized
+  #
   # returns erb if authorized OR failure text if not authorized
   def authorize(minimum_level, erb_destination, locations_involved: nil, not_authorized_message: nil)
     # sets authorized to false to be checked at the end
