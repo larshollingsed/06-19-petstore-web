@@ -18,7 +18,7 @@ get "/add_new_user" do
 end
 
 get "/add_user_confirm" do
-  password = encrypted_password = BCrypt::Password.create(params["new_user"]["password"])
+  password = BCrypt::Password.create(params["new_user"]["password"])
   @new_user = User.add({"email" => params["new_user"]["email"], "password" => password, "auth_level" => params["new_user"]["auth_level"], "location_owned" => params["new_user"]["location_owned"]})
   erb :"/menu"
 end
