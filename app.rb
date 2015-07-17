@@ -1,10 +1,13 @@
+require "rubygems"
+require "bundler/setup"
+
 require "sqlite3"
 require "sinatra"
 require "pry"
+require "sinatra/reloader"
 
 require_relative "module.rb"
 require_relative "orm.rb"
-require "sinatra/reloader"
 require_relative "database_setup.rb"
 
 
